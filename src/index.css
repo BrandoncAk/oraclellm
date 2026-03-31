@@ -1,0 +1,250 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cosmos-void: #0a0a12;
+  --cosmos-deep: #0d0d1a;
+  --cosmos-nebula: #1a1033;
+  --cosmos-star: #f0e6d3;
+  --cosmos-gold: #d4a853;
+  --cosmos-purple: #7b3fa0;
+  --cosmos-blue: #2d5a8e;
+  --cosmos-glow: #e8c547;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--cosmos-void);
+  color: var(--cosmos-star);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Stars background */
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  background: radial-gradient(circle, rgba(240, 230, 211, 0.9) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* Nebula background effect */
+.nebula-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(123, 63, 160, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(45, 90, 142, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(212, 168, 83, 0.04) 0%, transparent 50%);
+}
+
+/* Oracle orb */
+.oracle-orb {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(232, 197, 71, 0.3) 0%,
+    rgba(123, 63, 160, 0.4) 30%,
+    rgba(45, 90, 142, 0.3) 60%,
+    rgba(10, 10, 18, 0.8) 100%
+  );
+  box-shadow:
+    0 0 60px rgba(212, 168, 83, 0.3),
+    0 0 120px rgba(123, 63, 160, 0.2),
+    inset 0 0 60px rgba(232, 197, 71, 0.1);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.oracle-orb::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 30%;
+  height: 20%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+
+.oracle-orb.listening {
+  box-shadow:
+    0 0 80px rgba(232, 197, 71, 0.6),
+    0 0 160px rgba(123, 63, 160, 0.4),
+    0 0 240px rgba(212, 168, 83, 0.2),
+    inset 0 0 80px rgba(232, 197, 71, 0.2);
+  animation: orbPulse 1.5s ease-in-out infinite;
+}
+
+.oracle-orb.speaking {
+  box-shadow:
+    0 0 80px rgba(123, 63, 160, 0.6),
+    0 0 160px rgba(45, 90, 142, 0.4),
+    0 0 240px rgba(123, 63, 160, 0.2),
+    inset 0 0 80px rgba(123, 63, 160, 0.2);
+  animation: orbSpeak 0.8s ease-in-out infinite;
+}
+
+.oracle-orb.thinking {
+  animation: orbThink 2s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@keyframes orbSpeak {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.03); }
+  75% { transform: scale(0.97); }
+}
+
+@keyframes orbThink {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  50% { 
+    transform: scale(1.05) rotate(5deg);
+    filter: hue-rotate(30deg);
+  }
+}
+
+/* Sound wave visualization */
+.sound-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 40px;
+}
+
+.sound-bar {
+  width: 3px;
+  background: linear-gradient(to top, var(--cosmos-gold), var(--cosmos-purple));
+  border-radius: 3px;
+  animation: soundBar 0.5s ease-in-out infinite;
+}
+
+@keyframes soundBar {
+  0%, 100% { height: 4px; }
+  50% { height: var(--bar-height, 30px); }
+}
+
+/* Message bubbles */
+.message-oracle {
+  background: linear-gradient(135deg, rgba(123, 63, 160, 0.15) 0%, rgba(45, 90, 142, 0.1) 100%);
+  border-left: 2px solid var(--cosmos-purple);
+  backdrop-filter: blur(10px);
+}
+
+.message-user {
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.1) 0%, rgba(232, 197, 71, 0.05) 100%);
+  border-right: 2px solid var(--cosmos-gold);
+  backdrop-filter: blur(10px);
+}
+
+/* NASA image */
+.nasa-image {
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(123, 63, 160, 0.2);
+}
+
+/* Saved prophecies */
+.prophecy-card {
+  background: linear-gradient(135deg, rgba(123, 63, 160, 0.1) 0%, rgba(10, 10, 18, 0.8) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.prophecy-card:hover {
+  border-color: rgba(212, 168, 83, 0.5);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 18, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(123, 63, 160, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 63, 160, 0.5);
+}
+
+/* API key input */
+.api-key-input {
+  background: rgba(26, 16, 51, 0.5);
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  color: var(--cosmos-star);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  padding: 10px 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.api-key-input:focus {
+  border-color: var(--cosmos-gold);
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.15);
+}
+
+.api-key-input::placeholder {
+  color: rgba(240, 230, 211, 0.3);
+}
+
+/* Toast notification */
+.toast {
+  animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+             toastOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) 2.6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes toastIn {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(100px); opacity: 0; }
+}
