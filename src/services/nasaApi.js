@@ -1,4 +1,4 @@
-const NASA_API_KEY = 'DEMO_KEY';
+const NASA_API_KEY = '3Gctu9DIxNC7PH7Hu1r9XwmKLpZXQtJEshJzK1BU';
 const NASA_BASE = 'https://api.nasa.gov';
 
 export async function getAstronomyPictureOfDay(date = null) {
